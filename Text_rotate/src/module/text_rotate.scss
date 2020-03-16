@@ -1,0 +1,301 @@
+.elastic_rotate-container {
+  position: relative;
+  // width: 100px;
+  // height: 100px;
+  // height: 100px;
+  // display: inline-block;
+  font-size: 30px;
+  background-color: rebeccapurple;
+  margin: 300px;
+
+  & span:not(:first-child) {
+    visibility: hidden;
+  }
+
+  span {
+    position: absolute;
+    width: max-content;
+    font-size: inherit;
+  }
+}
+
+// Elastic Rotate
+.e-r_in {
+  animation: e-r_in 1.2s linear;
+  visibility: visible !important;
+  transform-origin: 50% 100%;
+}
+.e-r_out {
+  animation: e-r_out 1.2s linear;
+  visibility: hidden;
+  transform-origin: 50% 100%;
+}
+
+@keyframes e-r_out {
+  0% {
+    transform: perspective(300px) rotateX(0deg);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  35% {
+    transform: perspective(300px) rotateX(-60deg);
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: perspective(300px) rotateX(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes e-r_in {
+  0% {
+    transform: perspective(300px) rotateX(0deg);
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: perspective(300px) rotateX(360deg);
+    opacity: 1;
+  }
+}
+
+//Up Fade One Rotate
+.u-f_in {
+  visibility: visible !important;
+  animation: u-f_in 1.2s linear;
+  transform-origin: 50% 10%;
+}
+.u-f_out {
+  visibility: hidden;
+  animation: u-f_out 1.2s linear;
+  transform-origin: 50% 0;
+}
+
+@keyframes u-f_in {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+
+  50% {
+    opacity: 0;
+    visibility: hidden;
+    transform: perspective(600px) rotateX(-80deg);
+    transform-origin: 50% 0;
+  }
+  55% {
+    top: 20px;
+  }
+  70% {
+    // opacity: 1;
+    visibility: visible;
+    transform: perspective(600px) rotateX(0deg);
+    transform-origin: 50% 80%;
+  }
+
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+@keyframes u-f_out {
+  0% {
+    visibility: visible;
+    opacity: 1;
+    bottom: 0;
+  }
+
+  30% {
+    bottom: 10px;
+    // opacity: 1;
+    transform: perspective(600px) rotateX(0deg);
+  }
+
+  40% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(360deg);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+//Up Fade One Rotate
+.u-f-two_in {
+  visibility: visible !important;
+  animation: u-f-two_in 600ms linear;
+  
+}
+.u-f-two_out {
+  visibility: hidden;
+  animation: u-f-two_out 600ms linear;
+
+}
+
+
+@keyframes u-f-two_in {
+  0% {
+    opacity: 0;
+    transform-origin: 50% 40%;
+  }
+  5%{
+    top: 10px;
+  }
+  47%{
+    opacity: 0;
+  }
+  50%{
+    opacity: .5;
+    top: 25px;
+    transform: perspective(300px) rotateX(-90deg);
+  }
+  55%{
+    transform: perspective(300px) rotateX(-45deg);
+    opacity: 1;
+  }
+  100%{
+    transform: perspective(300px) rotateX(0deg);
+    transform-origin: 50% 40%;
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes u-f-two_out {
+  0%{
+    visibility: visible;
+    top: 0;
+    transform-origin: 50% 50%;
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg);
+  }
+  40%{
+    transform: perspective(600px) rotateX(40deg);
+    opacity: .5;
+  }
+  45%{
+    transform: perspective(600px) rotateX(90deg);
+  }
+  50%{
+    top: -25px;
+    transform-origin: 50% 50%;
+    opacity: 0;
+    transform: perspective(600px) rotateX(90deg);
+  }
+  100%{
+    top: -15px;
+    transform-origin: 50% 50%;
+    opacity: 0;
+    transform: perspective(600px) rotateX(90deg);
+  }
+}
+
+//Fade Out Rotate
+.f-u_in {
+  visibility: visible !important;
+  animation: f-u_in 1.2s linear;
+  // transform-origin: 50% 10%;
+}
+.f-u_out {
+  visibility: hidden;
+  animation: f-u_out 1.2s linear;
+  // transform-origin: 50% 0;
+}
+
+@keyframes f-u_in {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes f-u_out {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+//Collision Rotate
+.c-r_in {
+  visibility: visible !important;
+  animation: c-r_in 1.2s linear;
+  // transform-origin: 50% 10%;
+}
+.c-r_out {
+  visibility: hidden;
+  animation: c-r_out 1.2s linear;
+  // transform-origin: 50% 0;
+}
+
+@keyframes c-r_in {
+  0% {
+    visibility: visible;
+    left: 100px;
+  }
+
+  20% {
+    left: 30px;
+  }
+
+  40% {
+    left: 90px;
+  }
+
+  100% {
+    left: 0;
+  }
+}
+@keyframes c-r_out {
+  0% {
+    visibility: visible;
+    opacity: 1;
+    transform: perspective(500px) rotateY(0deg);
+  }
+
+  19% {
+    transform: perspective(500px) rotateY(0deg);
+    transform-origin: center left;
+  }
+  20% {
+    transform: rotateY(-30deg);
+    transform-origin: center left;
+  }
+
+  100% {
+    transform: rotateY(-30deg);
+
+    opacity: 1;
+  }
+}
