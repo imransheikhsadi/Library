@@ -1,0 +1,36 @@
+.gallary{
+  font-size: 0;
+  transition: all 1000ms;
+  position: relative;
+  img{
+    margin: 30px;
+    padding: 0;
+    // display: inline-block;
+    width: calc(33.33% - (30px * 2);
+    height: 100px;
+    visibility: visible;
+    height: auto;
+    // position: absolute;
+    transition: all 1000ms
+  }
+}
+.gallary--buttons{
+  text-align: center;
+  padding: 3rem;
+}
+
+.hide_image{
+  animation: animate 3s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate{
+  0%{
+    opacity: 1;
+    visibility: visible;
+  }
+  100%{
+    opacity: 0;
+    visibility: hidden;
+  }
+}
