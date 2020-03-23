@@ -13,7 +13,7 @@ class Gallary {
     let arrayKey;
     nav.forEach((item, i) => {
        arrayKey = item;
-      const vanishItems = this.collectVanishedItems(vanish[i]);
+      const vanishItems = this.collectVanishedItems(allItems,vanish[i]);
       const appearItems = this.appearItems(allItems,vanishItems);
       const affectedItems = this.affectedItems(allItems,vanishItems);
       const sortItems = this.sortItems(allItems,affectedItems,vanishItems);
@@ -46,16 +46,23 @@ class Gallary {
   }
 
   //Collect All Vanished allItems
-  collectVanishedItems(vanish){
-    const vanishItems = []
+  collectVanishedItems(allItems,vanish){
+    const viewItems = []
     this.select(vanish).forEach((item, i) => {
-      vanishItems.push({
+      viewItems.push({
         item: item,
         id: Number(item.id),
         x:item.x,
         y:item.y
       })
     });
+
+    const vanishItems = allItems.filter((item,i)=>{
+      for (var i = 0; i < viewItems.length; i++) {
+        if (viewItems[i].id === item.id) return false;
+      }
+      return true;
+    })
     return vanishItems;
   }
   //appearItems
@@ -71,31 +78,39 @@ class Gallary {
 
   //Affected Items
   affectedItems(allItems,vanishItems){
-    const lowest = vanishItems.reduce((low,cur)=>{
-      return low.id < cur.id ? low : cur;
-    }).id;
+    if (vanishItems.length > 0) {
+      const lowest = vanishItems.reduce((low,cur)=>{
+        return low.id < cur.id ? low : cur;
+      }).id;
 
-    const affectedItems = allItems.filter(item=> {
-      for (var i = 0; i < vanishItems.length; i++) {
-        if (vanishItems[i].id === item.id || item.id <= lowest ) return false;
-      }
-      return true;
-    })
+      const affectedItems = allItems.filter(item=> {
+        for (var i = 0; i < vanishItems.length; i++) {
+          if (vanishItems[i].id === item.id || item.id <= lowest ) return false;
+        }
+        return true;
+      })
 
-    return affectedItems;
+      return affectedItems;
+    }else {
+      return allItems;
+    }
   }
 
   sortItems(allItems,affectedItems,vanishItems){
-    const lowest = vanishItems.reduce((low,cur)=>{
-      return low.id < cur.id ? low : cur;
-    }).id;
-    const initialItems = allItems.filter((item)=> item.id >= lowest);
-    const sortItems = [];
-    affectedItems.forEach((item, i) => {
-      sortItems.push(initialItems[i]);
-    });
+    if (vanishItems.length > 0) {
+      const lowest = vanishItems.reduce((low,cur)=>{
+        return low.id < cur.id ? low : cur;
+      }).id;
+      const initialItems = allItems.filter((item)=> item.id >= lowest);
+      const sortItems = [];
+      affectedItems.forEach((item, i) => {
+        sortItems.push(initialItems[i]);
+      });
 
-    return sortItems;
+      return sortItems;
+    }else {
+      return allItems;
+    }
   }
 
 //sort by position

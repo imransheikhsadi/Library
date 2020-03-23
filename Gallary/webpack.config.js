@@ -10,7 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   // exclude: /(node_modules|bower_components)/,
-  mode: 'development',
+  mode: 'production',
   devServer: {
     port: 5555,
     open: true,
@@ -18,7 +18,7 @@ module.exports = {
   },
 
   //Shows the source file error line
-  devtool: "inline-source-map",
+  // devtool: "inline-source-map",
 
   module: {
     rules: [
