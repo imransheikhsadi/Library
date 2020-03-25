@@ -1,0 +1,10 @@
+.row{
+    max-width: 114rem;
+}
+
+.basic-grid{
+    display: grid;
+    margin: 0 auto;
+    max-width: 114rem;
+    grid-gap: 6rem;
+}
