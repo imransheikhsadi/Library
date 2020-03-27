@@ -6,9 +6,20 @@ new OnScreen([
         element: '[data-visible]',
         callback: {
             in: (element)=>{
-                // element.style.transform = 'translateX(30px)'
+                console.log('item in'); 
             },
             out: ()=>{console.log('item out')}
         }
+    },
+    {
+        element: '.main',
+        callback: {
+            in: (element)=>{
+                console.log('main in'); 
+                element.style.transform = 'rotate(360deg)'
+            },
+            out: ()=>{}
+        }
     }
 ]);
+
