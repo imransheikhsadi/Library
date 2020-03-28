@@ -1,15 +1,15 @@
 class Gallary {
-  constructor(nav,vanish) {
+  constructor(nav,vanish,gallaryItem) {
     window.onload = ()=>{
       this.images = [];
-      this.handleImages(nav,vanish);
+      this.handleImages(gallaryItem,nav,vanish);
       this.handleClick(nav,vanish);
     }
   }
 
   //handle Images Initially
-  handleImages(nav,vanish){
-    const allItems = this.collectAllItems();
+  handleImages(gallaryItem,nav,vanish){
+    const allItems = this.collectAllItems(gallaryItem);
     let arrayKey;
     nav.forEach((item, i) => {
        arrayKey = item;
@@ -31,17 +31,18 @@ class Gallary {
   }
 
   //Collect All Gallary Items
-  collectAllItems(){
+  collectAllItems(gallaryItem){
     const allItems = []
-    this.select('.gallary_item').forEach((item, i) => {
+    const items = gallaryItem ? this.select(gallaryItem):[...document.querySelector('.gallary').children];
+    items.forEach((item,i)=>{
+      item.setAttribute("positionindex",`${i}`)
       allItems.push({
         item: item,
-        id: Number(item.id),
         x:item.x,
-        y:item.y
+        y:item.y,
+        position: i
       })
     });
-
     return allItems;
   }
 
@@ -51,15 +52,15 @@ class Gallary {
     this.select(vanish).forEach((item, i) => {
       viewItems.push({
         item: item,
-        id: Number(item.id),
         x:item.x,
-        y:item.y
+        y:item.y,
+        position: Number(item.getAttribute('positionindex'))
       })
     });
 
     const vanishItems = allItems.filter((item,i)=>{
       for (var i = 0; i < viewItems.length; i++) {
-        if (viewItems[i].id === item.id) return false;
+        if (viewItems[i].position === item.position) return false;
       }
       return true;
     })
@@ -69,7 +70,7 @@ class Gallary {
   appearItems(allItems,vanishItems){
     const appearItems = allItems.filter((item,i)=> {
       for (var i = 0; i < vanishItems.length; i++) {
-        if (vanishItems[i].id === item.id) return false;
+        if (vanishItems[i].position === item.position) return false;
       }
       return true;
     })
@@ -79,13 +80,11 @@ class Gallary {
   //Affected Items
   affectedItems(allItems,vanishItems){
     if (vanishItems.length > 0) {
-      const lowest = vanishItems.reduce((low,cur)=>{
-        return low.id < cur.id ? low : cur;
-      }).id;
+      const lowest = this.lowestItem(vanishItems);
 
       const affectedItems = allItems.filter(item=> {
         for (var i = 0; i < vanishItems.length; i++) {
-          if (vanishItems[i].id === item.id || item.id <= lowest ) return false;
+          if (vanishItems[i].position === item.position || item.position <= lowest ) return false;
         }
         return true;
       })
@@ -98,10 +97,8 @@ class Gallary {
 
   sortItems(allItems,affectedItems,vanishItems){
     if (vanishItems.length > 0) {
-      const lowest = vanishItems.reduce((low,cur)=>{
-        return low.id < cur.id ? low : cur;
-      }).id;
-      const initialItems = allItems.filter((item)=> item.id >= lowest);
+      const lowest = this.lowestItem(vanishItems);
+      const initialItems = allItems.filter((item)=> item.position >= lowest);
       const sortItems = [];
       affectedItems.forEach((item, i) => {
         sortItems.push(initialItems[i]);
@@ -111,6 +108,14 @@ class Gallary {
     }else {
       return allItems;
     }
+  }
+
+  lowestItem(vanishItems){
+    // console.log(vanishItems);
+    
+    return vanishItems.reduce((low,cur)=>{
+      return low.position < cur.position ? low : cur;
+    }).position;
   }
 
 //sort by position
